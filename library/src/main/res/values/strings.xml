@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Library</string>
+    <string name="loading">Loading…</string>
+    <string name="loaded">Loaded</string>
+    <string name="load_failed">Load failed</string>
+    <string name="nothing_more">Nothing more</string>
+</resources>

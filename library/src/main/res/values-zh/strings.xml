@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="loading">加载中…</string>
+    <string name="loaded">加载完成</string>
+    <string name="load_failed">加载失败</string>
+    <string name="nothing_more">没有更多内容</string>
+</resources>
