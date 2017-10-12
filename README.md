@@ -14,4 +14,9 @@ RecyclerViewHelper是基于android 原生库RecyclerView的功能扩展，扩展
 * ![ObjectAdapter](https://raw.githubusercontent.com/CNCoderX/RecyclerViewHelper/master/library/src/main/java/com/cncoderx/recyclerviewhelper/adapter/ObjectAdapter.java)
 * ![ExpandableAdapter](https://raw.githubusercontent.com/CNCoderX/RecyclerViewHelper/master/library/src/main/java/com/cncoderx/recyclerviewhelper/adapter/ExpandableAdapter.java)
 
+## 添加依赖
+```gradle
+compile 'com.cncoderx.recyclerviewhelper:library:1.0'
+```
+
 
