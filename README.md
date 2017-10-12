@@ -7,7 +7,7 @@ RecyclerViewHelper是基于android 原生库RecyclerView的功能扩展，扩展
 * 非常简单的添加分割线和列表间距
 * 拓展了多种适配器Adapter
 
-####增加的适配器
+#### 增加的适配器
 * ArrayAdapter
 * SimpleAdapter
 * CursorAdapter、SimpleCursorAdapter
