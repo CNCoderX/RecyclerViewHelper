@@ -16,7 +16,11 @@ public class MainActivity extends ListActivity {
                 android.R.layout.simple_list_item_1,
                 android.R.id.text1,
                 new String[] {
-                        "Item Click/LongClick", "Header/Footer View", "Load More Data", "Expandable Item"
+                        "Item Click/LongClick",
+                        "Header/Footer View",
+                        "Load More Data",
+                        "Expandable Item",
+                        "Swipe Layout"
                 }));
     }
 
@@ -34,6 +38,9 @@ public class MainActivity extends ListActivity {
                 break;
             case 3:
                 startActivity(new Intent(this, ExpandableItemActivity.class));
+                break;
+            case 4:
+                startActivity(new Intent(this, SwipeLayoutActivity.class));
                 break;
         }
     }

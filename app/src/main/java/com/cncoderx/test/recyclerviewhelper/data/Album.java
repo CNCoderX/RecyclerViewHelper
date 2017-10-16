@@ -1,7 +1,7 @@
 package com.cncoderx.test.recyclerviewhelper.data;
 
 /**
- * Created by admin on 2017/9/29.
+ * @author cncoderx
  */
 public class Album {
     private int cover;

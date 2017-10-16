@@ -16,7 +16,7 @@ import com.cncoderx.recyclerviewhelper.utils.SpacingItemDecoration;
 import com.cncoderx.test.recyclerviewhelper.R;
 
 /**
- * Created by admin on 2017/10/9.
+ * @author cncoderx
  */
 public class RecyclerViewActivity extends Activity {
     RecyclerView mRecyclerView;

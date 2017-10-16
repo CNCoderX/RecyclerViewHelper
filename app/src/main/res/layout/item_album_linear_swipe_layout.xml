@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.daimajia.swipe.SwipeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:show_mode="lay_down"
+    app:drag_edge="right">
+
+    <FrameLayout
+        android:id="@+id/delete"
+        android:layout_width="92dp"
+        android:layout_height="92dp"
+        android:background="#d32f2f">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="删除"
+            android:textColor="#fff"
+            android:textSize="16sp"/>
+    </FrameLayout>
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/item_album_linear_layout"/>
+
+</com.daimajia.swipe.SwipeLayout>

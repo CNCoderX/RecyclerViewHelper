@@ -12,6 +12,7 @@ import android.widget.Filterable;
 
 import com.cncoderx.recyclerviewhelper.listener.OnItemClickListener;
 import com.cncoderx.recyclerviewhelper.listener.OnItemLongClickListener;
+import com.cncoderx.recyclerviewhelper.utils.SwipeItemManager;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -27,10 +28,12 @@ public class ProxyAdapter extends RecyclerView.Adapter implements Filterable {
 
     final RecyclerView.Adapter mAdapter;
 
+    private RecyclerView mRecyclerView;
     private OnItemClickListener onItemClickListener;
     private OnItemLongClickListener onItemLongClickListener;
 
-    private RecyclerView mRecyclerView;
+    private boolean isSwipable = false;
+    private SwipeItemManager mSwipeItemManager;
 
     public ProxyAdapter(RecyclerView.Adapter adapter) {
         if (adapter == null) {
@@ -52,6 +55,9 @@ public class ProxyAdapter extends RecyclerView.Adapter implements Filterable {
             viewHolder = new FixedViewHolder(mFooterViewInfos.get(value).view);
         } else {
             viewHolder = mAdapter.onCreateViewHolder(parent, viewType);
+            if (isSwipable) {
+                obtainSwipeItemManger().bindViewHolder(viewHolder);
+            }
         }
         return viewHolder;
     }
@@ -68,7 +74,9 @@ public class ProxyAdapter extends RecyclerView.Adapter implements Filterable {
 
     @Override
     public int getItemCount() {
-        return mHeaderViewInfos.size() + mFooterViewInfos.size() + mAdapter.getItemCount();
+        final int itemCount = mAdapter.getItemCount();
+        if (mSwipeItemManager != null) mSwipeItemManager.setItemCount(itemCount);
+        return mHeaderViewInfos.size() + mFooterViewInfos.size() + itemCount;
     }
 
     @Override
@@ -146,7 +154,6 @@ public class ProxyAdapter extends RecyclerView.Adapter implements Filterable {
 
     @Override
     public void onViewDetachedFromWindow(RecyclerView.ViewHolder holder) {
-        System.out.println("onViewDetachedFromWindow, position:" + holder.getLayoutPosition());
         if (holder instanceof FixedViewHolder) return;
         mAdapter.onViewDetachedFromWindow(holder);
 
@@ -159,7 +166,6 @@ public class ProxyAdapter extends RecyclerView.Adapter implements Filterable {
 
     @Override
     public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
-        System.out.println("onViewAttachedToWindow, position:" + holder.getLayoutPosition());
         if (holder instanceof FixedViewHolder) {
             ViewGroup.LayoutParams lParams = holder.itemView.getLayoutParams();
             if (lParams instanceof StaggeredGridLayoutManager.LayoutParams) {
@@ -285,6 +291,14 @@ public class ProxyAdapter extends RecyclerView.Adapter implements Filterable {
         return false;
     }
 
+    public boolean isSwipable() {
+        return isSwipable;
+    }
+
+    public void setSwipable(boolean swipable) {
+        isSwipable = swipable;
+    }
+
     public OnItemClickListener getOnItemClickListener() {
         return onItemClickListener;
     }
@@ -303,6 +317,13 @@ public class ProxyAdapter extends RecyclerView.Adapter implements Filterable {
 
     public RecyclerView.Adapter getWrappedAdapter() {
         return mAdapter;
+    }
+
+    SwipeItemManager obtainSwipeItemManger() {
+        if (mSwipeItemManager == null) {
+            mSwipeItemManager = new SwipeItemManager();
+        }
+        return mSwipeItemManager;
     }
 
     @Override

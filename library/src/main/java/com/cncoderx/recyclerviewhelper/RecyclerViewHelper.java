@@ -153,6 +153,10 @@ public class RecyclerViewHelper {
         }
     }
 
+    public static void setSwipable(RecyclerView recyclerView, boolean swipable) {
+        obtainProxyAdapter(recyclerView, "setSwipable()").setSwipable(swipable);
+    }
+
 //    public static void setOnGroupClickListener(RecyclerView recyclerView, OnGroupClickListener listener) {
 //        obtainExpandableAdapter(recyclerView, "setOnGroupClickListener").setOnGroupClickListener(listener);
 //    }

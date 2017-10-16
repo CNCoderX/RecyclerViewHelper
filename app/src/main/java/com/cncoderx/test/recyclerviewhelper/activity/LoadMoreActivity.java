@@ -15,7 +15,7 @@ import com.cncoderx.test.recyclerviewhelper.utils.Layout;
 import java.util.List;
 
 /**
- * Created by admin on 2017/10/9.
+ * @author cncoderx
  */
 public class LoadMoreActivity extends RecyclerViewActivity {
 

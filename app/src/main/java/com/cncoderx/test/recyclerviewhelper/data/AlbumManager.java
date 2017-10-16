@@ -1,14 +1,12 @@
 package com.cncoderx.test.recyclerviewhelper.data;
 
-import android.graphics.drawable.AnimationDrawable;
-
 import com.cncoderx.test.recyclerviewhelper.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by admin on 2017/9/29.
+ * @author cncoderx
  */
 public class AlbumManager {
 

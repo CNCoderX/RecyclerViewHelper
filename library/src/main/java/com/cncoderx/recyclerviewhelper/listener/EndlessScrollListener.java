@@ -3,7 +3,6 @@ package com.cncoderx.recyclerviewhelper.listener;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.view.View;
 
 import com.cncoderx.recyclerviewhelper.utils.ILoadingView;
 

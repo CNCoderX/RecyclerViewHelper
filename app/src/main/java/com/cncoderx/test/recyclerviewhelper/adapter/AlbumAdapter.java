@@ -1,6 +1,7 @@
 package com.cncoderx.test.recyclerviewhelper.adapter;
 
 import android.support.annotation.LayoutRes;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,7 +12,7 @@ import com.cncoderx.test.recyclerviewhelper.data.Album;
 import java.util.Collection;
 
 /**
- * Created by admin on 2017/9/29.
+ * @author cncoderx
  */
 public class AlbumAdapter extends ObjectAdapter<Album> {
 
@@ -28,9 +29,18 @@ public class AlbumAdapter extends ObjectAdapter<Album> {
     }
 
     @Override
-    public void onBindViewHolder(BaseViewHolder holder, Album object, int position) {
+    public void onBindViewHolder(BaseViewHolder holder, Album object, final int position) {
         holder.getView(R.id.cover, ImageView.class).setImageResource(object.getCover());
         holder.getView(R.id.name, TextView.class).setText(object.getName());
         holder.getView(R.id.price, TextView.class).setText(object.getPrice());
+        View view = holder.getView(R.id.delete);
+        if (view != null) {
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    remove(position);
+                }
+            });
+        }
     }
 }

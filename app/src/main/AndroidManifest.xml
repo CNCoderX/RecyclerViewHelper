@@ -25,6 +25,8 @@
         </activity>
         <activity android:name=".activity.HeaderOrFooterActivity">
         </activity>
+        <activity android:name=".activity.SwipeLayoutActivity">
+        </activity>
     </application>
 
 </manifest>

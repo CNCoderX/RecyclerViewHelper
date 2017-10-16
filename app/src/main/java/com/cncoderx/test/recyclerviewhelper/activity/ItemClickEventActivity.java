@@ -13,7 +13,7 @@ import com.cncoderx.test.recyclerviewhelper.data.AlbumManager;
 import com.cncoderx.test.recyclerviewhelper.utils.Layout;
 
 /**
- * Created by wujie on 2017/10/11.
+ * @author cncoderx
  */
 public class ItemClickEventActivity extends RecyclerViewActivity {
 

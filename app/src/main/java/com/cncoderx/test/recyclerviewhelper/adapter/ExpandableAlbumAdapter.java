@@ -15,7 +15,7 @@ import com.cncoderx.test.recyclerviewhelper.data.Album;
 import java.util.List;
 
 /**
- * Created by admin on 2017/10/9.
+ * @author cncoderx
  */
 public class ExpandableAlbumAdapter extends ExpandableAdapter<ExpandableAlbumAdapter.GroupViewHolder, ExpandableAlbumAdapter.ChildViewHolder> {
     private List<String> mGroupData;
