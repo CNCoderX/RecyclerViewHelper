@@ -5,6 +5,7 @@ RecyclerViewHelper是基于android 原生库RecyclerView的功能扩展，扩展
 * 滑动到底部加载更多（Load More）
 * 可收缩/展开的两级列表（类似ExpandableListView）
 * 非常简单的添加分割线和列表间距
+* Item抽屉效果（![Swipe Layout](https://github.com/daimajia/AndroidSwipeLayout)）
 * 拓展了多种适配器Adapter
 
 #### 增加的适配器
@@ -17,6 +18,9 @@ RecyclerViewHelper是基于android 原生库RecyclerView的功能扩展，扩展
 ## 添加依赖
 ```gradle
 compile 'com.cncoderx.recyclerviewhelper:library:1.0'
+
+如需要添加抽屉功能，需要添加依赖：
+compile "com.daimajia.swipelayout:library:1.2.0@aar"
 ```
 
 
