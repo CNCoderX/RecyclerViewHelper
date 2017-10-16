@@ -41,10 +41,6 @@ public class LoadingView implements ILoadingView {
     public void hidden() {
         mState = STATE_HIDDEN;
         view.setVisibility(View.GONE);
-
-        ViewGroup.LayoutParams lParams = view.getLayoutParams();
-        lParams.height = 0;
-        view.setLayoutParams(lParams);
     }
 
     @Override
