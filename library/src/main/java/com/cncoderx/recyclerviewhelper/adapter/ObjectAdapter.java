@@ -88,16 +88,25 @@ public abstract class ObjectAdapter<T> extends BaseAdapter {
         int lastIndex = mData.size();
         mData.addAll(objects);
         if (isNotifiable) {
-            int position = getPosition(lastIndex);
-            notifyItemRangeInserted(position, objects.size());
+            if (lastIndex == 0) {
+                notifyDataSetChanged();
+            } else {
+                int position = getPosition(lastIndex);
+                notifyItemRangeInserted(position, objects.size());
+            }
         }
     }
 
     public void addAll(int index, Collection<? extends T> objects) {
+        int lastIndex = mData.size();
         mData.addAll(index, objects);
         if (isNotifiable) {
-            int position = getPosition(index);
-            notifyItemRangeInserted(position, objects.size());
+            if (lastIndex == 0) {
+                notifyDataSetChanged();
+            } else {
+                int position = getPosition(index);
+                notifyItemRangeInserted(position, objects.size());
+            }
         }
     }
 
