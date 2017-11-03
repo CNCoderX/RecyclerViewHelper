@@ -2,6 +2,7 @@ package com.cncoderx.test.recyclerviewhelper.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +20,7 @@ import com.cncoderx.test.recyclerviewhelper.R;
  * @author cncoderx
  */
 public class RecyclerViewActivity extends Activity {
+    SwipeRefreshLayout mRefreshLayout;
     RecyclerView mRecyclerView;
     RecyclerView.ItemDecoration mItemDecoration;
 
@@ -26,8 +28,14 @@ public class RecyclerViewActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler_view);
+        mRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         setLinearLayoutManager();
+        mRefreshLayout.setEnabled(isRefreshable());
+    }
+
+    protected boolean isRefreshable() {
+        return false;
     }
 
     @Override

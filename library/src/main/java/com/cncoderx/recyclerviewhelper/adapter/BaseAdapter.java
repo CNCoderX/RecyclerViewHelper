@@ -1,6 +1,7 @@
 package com.cncoderx.recyclerviewhelper.adapter;
 
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -30,14 +31,19 @@ public abstract class BaseAdapter extends RecyclerView.Adapter<BaseAdapter.BaseV
             super(itemView);
         }
 
-        public View getView(@IdRes int id) {
+        public @NonNull View getView(@IdRes int id) {
             return getView(id, View.class);
         }
 
-        public <T extends View> T getView(@IdRes int id, Class<T> clazz) {
+        public @NonNull <T extends View> T getView(@IdRes int id, Class<T> clazz) {
             View v = mIDArray.get(id);
             if (v == null) {
                 v = itemView.findViewById(id);
+                if (v == null) {
+                    throw new RuntimeException("Failed to find view with ID "
+                            + itemView.getResources().getResourceName(id)
+                            + " in item layout");
+                }
                 mIDArray.put(id, v);
             }
             //noinspection unchecked

@@ -2,6 +2,7 @@ package com.cncoderx.recyclerview.helper;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.junit.Assert.*;
@@ -14,8 +15,15 @@ public class ExampleUnitTest {
     public void addition_isCorrect() throws Exception {
         assertEquals(4, 2 + 2);
 
-        int[] a = {5, 8, 9, 8, 1, 7, 6};
-        Arrays.sort(a);
-        System.out.println(Arrays.toString(a));
+        ArrayList<Integer> array = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            array.add(i);
+        }
+
+        System.out.println(Arrays.toString(array.toArray()));
+
+        array.add(array.size(), 10);
+
+        System.out.println(Arrays.toString(array.toArray()));
     }
 }

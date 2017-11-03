@@ -1,6 +1,8 @@
 package com.cncoderx.test.recyclerviewhelper.activity;
 
 import android.os.AsyncTask;
+import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 
 import com.cncoderx.recyclerviewhelper.RecyclerViewHelper;
@@ -18,44 +20,56 @@ import java.util.List;
  * @author cncoderx
  */
 public class LoadMoreActivity extends RecyclerViewActivity {
+    AlbumAdapter mAdapter;
 
     @Override
     protected void onLayoutManagerChanged(Layout layout) {
         super.onLayoutManagerChanged(layout);
-        RecyclerView.Adapter adapter = null;
         switch (layout) {
             case linear:
-                adapter = new AlbumAdapter(R.layout.item_album_linear_layout, AlbumManager.obtainAlbumList(0, 10));
+                mAdapter = new AlbumAdapter(R.layout.item_album_linear_layout, AlbumManager.obtainAlbumList(0, 10));
                 break;
             case grid:
-                adapter = new AlbumAdapter(R.layout.item_album_grid_layout, AlbumManager.obtainAlbumList(0, 10));
+                mAdapter = new AlbumAdapter(R.layout.item_album_grid_layout, AlbumManager.obtainAlbumList(0, 10));
                 break;
             case staggered:
-                adapter = new AlbumAdapter(R.layout.item_album_staggered_layout, AlbumManager.obtainAlbumList(0, 10));
+                mAdapter = new AlbumAdapter(R.layout.item_album_staggered_layout, AlbumManager.obtainAlbumList(0, 10));
                 break;
         }
 
-        RecyclerViewHelper.setAdapter(mRecyclerView, adapter);
+        RecyclerViewHelper.setAdapter(mRecyclerView, mAdapter);
         RecyclerViewHelper.setLoadMoreListener(mRecyclerView, new OnLoadMoreListener() {
             @Override
             public void load(RecyclerView recyclerView, ILoadingView view) {
-                new LoadingTask((AlbumAdapter) RecyclerViewHelper.getAdapter(recyclerView), view).execute();
+                new LoadingTask(mAdapter, null, view).execute();
             }
         });
+
+        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mAdapter.clear();
+                new LoadingTask(mAdapter, mRefreshLayout, null).execute();
+            }
+        });
+    }
+
+    @Override
+    protected boolean isRefreshable() {
+        return true;
     }
 
     static class LoadingTask extends AsyncTask<Integer, Void, List<Album>> {
         AlbumAdapter adapter;
         ILoadingView view;
+        SwipeRefreshLayout refresh;
 
-        public LoadingTask(AlbumAdapter adapter, ILoadingView view) {
+        public LoadingTask(AlbumAdapter adapter,
+                           @Nullable SwipeRefreshLayout refresh,
+                           @Nullable ILoadingView view) {
             this.adapter = adapter;
+            this.refresh = refresh;
             this.view = view;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            view.show();
         }
 
         @Override
@@ -65,17 +79,22 @@ public class LoadMoreActivity extends RecyclerViewActivity {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            return AlbumManager.obtainAlbumList(adapter.size(), 4);
+            return AlbumManager.obtainAlbumList(adapter.size(), refresh == null ? 4 : 10);
         }
 
         @Override
         protected void onPostExecute(List<Album> albums) {
+            if (refresh != null)
+                refresh.setRefreshing(false);
+
             final int count = albums.size();
             if (count == 0) {
-                view.end();
+                if (view != null)
+                    view.gone();
             } else {
                 adapter.addAll(albums);
-                view.hidden();
+                if (view != null)
+                    view.hidden();
             }
         }
     }
