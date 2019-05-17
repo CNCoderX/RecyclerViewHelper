@@ -98,12 +98,14 @@ public class RecyclerViewHelper {
         obtainProxyAdapter(recyclerView, "removeFooterView()").removeFooterView(footerView);
     }
 
+    @Deprecated
     public static RecyclerView.ItemDecoration setDivider(@NonNull RecyclerView recyclerView, Drawable divider, int dividerHeight) {
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(divider, dividerHeight);
         recyclerView.addItemDecoration(itemDecoration);
         return itemDecoration;
     }
 
+    @Deprecated
     public static RecyclerView.ItemDecoration setSpace(@NonNull RecyclerView recyclerView, int space) {
         RecyclerView.ItemDecoration itemDecoration = new SpacingItemDecoration(space);
         recyclerView.addItemDecoration(itemDecoration);

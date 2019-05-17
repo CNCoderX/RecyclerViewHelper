@@ -54,10 +54,14 @@ public class ProxyAdapter extends RecyclerView.Adapter implements Filterable {
             viewHolder = mLoadViewHolder;
         } else {
             viewHolder = mAdapter.onCreateViewHolder(parent, viewType);
-            ItemClickEvent event = new ItemClickEvent(
-                    this, (RecyclerView) parent, viewHolder);
-            viewHolder.itemView.setOnClickListener(event);
-            viewHolder.itemView.setOnLongClickListener(event);
+            if (onItemClickListener != null) {
+                viewHolder.itemView.setOnClickListener(new ItemClickEvent(
+                        this, (RecyclerView) parent, viewHolder));
+            }
+            if (onItemLongClickListener != null) {
+                viewHolder.itemView.setOnLongClickListener(new ItemClickEvent(
+                        this, (RecyclerView) parent, viewHolder));
+            }
         }
         return viewHolder;
     }

@@ -7,6 +7,7 @@ import android.view.View;
 /**
  * @author cncoderx
  */
+@Deprecated
 public class SpacingItemDecoration extends RecyclerView.ItemDecoration {
     private int mHalfSpace;
     private boolean hasPadding;

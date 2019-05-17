@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 /**
  * @author cncoderx
  */
+@Deprecated
 public class DividerItemDecoration extends RecyclerView.ItemDecoration {
     private Drawable mDivider;
     private int mDividerHeight;
