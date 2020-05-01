@@ -1,5 +1,6 @@
 package com.cncoderx.recyclerviewhelper.adapter;
 
+import android.content.Context;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -29,6 +30,10 @@ public abstract class BaseAdapter extends RecyclerView.Adapter<BaseAdapter.BaseV
 
         public BaseViewHolder(View itemView) {
             super(itemView);
+        }
+
+        public Context getContext() {
+            return itemView.getContext();
         }
 
         public @NonNull <T extends View> T getView(@IdRes int id) {

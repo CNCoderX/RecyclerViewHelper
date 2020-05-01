@@ -19,7 +19,8 @@ import java.util.Comparator;
 /**
  * @author cncoderx
  */
-public abstract class ObjectAdapter<T> extends BaseAdapter implements IArray<T>, IArray.Callback, Filterable {
+public abstract class ObjectAdapter<T> extends BaseAdapter
+        implements IArray<T>, IArray.Callback, Filterable {
     private @LayoutRes int mResource;
     private Array<T> mArray = new Array<>();
     private Array<T> mOriginalArray;
@@ -34,7 +35,6 @@ public abstract class ObjectAdapter<T> extends BaseAdapter implements IArray<T>,
         mArray.setCallback(this);
     }
 
-    @SafeVarargs
     public ObjectAdapter(@LayoutRes int resource, @NonNull T... objects) {
         mResource = resource;
         mArray.addAll(Arrays.asList(objects));
@@ -49,7 +49,7 @@ public abstract class ObjectAdapter<T> extends BaseAdapter implements IArray<T>,
 
     @Override
     protected View onCreateView(LayoutInflater inflater, ViewGroup parent, int viewType) {
-        return inflater.inflate(mResource, parent, false);
+        return inflater.inflate(getLayoutResource(viewType), parent, false);
     }
 
     @Override
@@ -60,8 +60,13 @@ public abstract class ObjectAdapter<T> extends BaseAdapter implements IArray<T>,
 
     public abstract void onBindViewHolder(BaseViewHolder holder, T object, int position);
 
+    @LayoutRes
+    protected int getLayoutResource(int viewType) {
+        return mResource;
+    }
+
     @Override
-    public int getItemCount() {
+    public final int getItemCount() {
         return size();
     }
 

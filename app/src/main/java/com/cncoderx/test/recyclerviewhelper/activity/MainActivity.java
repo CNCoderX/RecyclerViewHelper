@@ -21,7 +21,8 @@ public class MainActivity extends ListActivity {
                         "Load More Data",
                         "Expandable Item",
                         "Swipe Layout",
-                        "Data Filter"
+                        "Data Filter",
+                        "Multiple View Type"
                 }));
     }
 
@@ -45,6 +46,9 @@ public class MainActivity extends ListActivity {
                 break;
             case 5:
                 startActivity(new Intent(this, DataFilterActivity.class));
+                break;
+            case 6:
+                startActivity(new Intent(this, MultiItemActivity.class));
                 break;
             default:
                 break;
