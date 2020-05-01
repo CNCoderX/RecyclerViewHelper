@@ -20,7 +20,8 @@ public class MainActivity extends ListActivity {
                         "Header/Footer View",
                         "Load More Data",
                         "Expandable Item",
-                        "Swipe Layout"
+                        "Swipe Layout",
+                        "Data Filter"
                 }));
     }
 
@@ -41,6 +42,11 @@ public class MainActivity extends ListActivity {
                 break;
             case 4:
                 startActivity(new Intent(this, SwipeLayoutActivity.class));
+                break;
+            case 5:
+                startActivity(new Intent(this, DataFilterActivity.class));
+                break;
+            default:
                 break;
         }
     }

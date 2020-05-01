@@ -27,6 +27,8 @@
         </activity>
         <activity android:name=".activity.SwipeLayoutActivity">
         </activity>
+        <activity android:name=".activity.DataFilterActivity">
+        </activity>
     </application>
 
 </manifest>

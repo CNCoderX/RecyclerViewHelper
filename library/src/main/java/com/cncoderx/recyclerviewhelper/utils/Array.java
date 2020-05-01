@@ -12,7 +12,7 @@ import java.util.Comparator;
  */
 public class Array<T> implements IArray<T> {
 
-    private ArrayList<T> mArray = new ArrayList<>();
+    private final ArrayList<T> mArray;
 
     private Callback mCallback;
 
@@ -22,6 +22,22 @@ public class Array<T> implements IArray<T> {
 
     public void setCallback(Callback callback) {
         mCallback = callback;
+    }
+
+    public Array() {
+        this.mArray = new ArrayList<>();
+    }
+
+    public Array(int capacity) {
+        this.mArray = new ArrayList<>(capacity);
+    }
+
+    public Array(Array<T> array) {
+        this(array.mArray);
+    }
+
+    public Array(Collection<? extends T> c) {
+        this.mArray = new ArrayList<>(c);
     }
 
     @Override

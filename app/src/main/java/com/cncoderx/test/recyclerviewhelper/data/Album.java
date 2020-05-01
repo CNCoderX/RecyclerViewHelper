@@ -1,5 +1,7 @@
 package com.cncoderx.test.recyclerviewhelper.data;
 
+import android.support.annotation.NonNull;
+
 /**
  * @author cncoderx
  */
@@ -39,5 +41,11 @@ public class Album {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return name;
     }
 }

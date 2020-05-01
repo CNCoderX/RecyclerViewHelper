@@ -5,10 +5,13 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 import com.cncoderx.recyclerviewhelper.utils.Array;
 import com.cncoderx.recyclerviewhelper.utils.IArray;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
@@ -16,9 +19,12 @@ import java.util.Comparator;
 /**
  * @author cncoderx
  */
-public abstract class ObjectAdapter<T> extends BaseAdapter implements IArray<T>, IArray.Callback {
+public abstract class ObjectAdapter<T> extends BaseAdapter implements IArray<T>, IArray.Callback, Filterable {
     private @LayoutRes int mResource;
-    private final Array<T> mArray = new Array<>();
+    private Array<T> mArray = new Array<>();
+    private Array<T> mOriginalArray;
+    private ArrayFilter mFilter;
+    private final Object mLock = new Object();
 
     private boolean mNotifyOnChange = true;
     private int mPositionOffset = 0;
@@ -229,5 +235,78 @@ public abstract class ObjectAdapter<T> extends BaseAdapter implements IArray<T>,
 
     public void setPositionOffset(int positionOffset) {
         mPositionOffset = positionOffset;
+    }
+
+    @Override
+    public Filter getFilter() {
+        if (mFilter == null) {
+            mFilter = new ArrayFilter();
+        }
+        return mFilter;
+    }
+
+    private class ArrayFilter extends Filter {
+
+        @Override
+        protected FilterResults performFiltering(CharSequence prefix) {
+            final FilterResults results = new FilterResults();
+
+            if (mOriginalArray == null) {
+                synchronized (mLock) {
+                    mOriginalArray = new Array<>(mArray);
+                }
+            }
+
+            if (prefix == null || prefix.length() == 0) {
+                final Array<T> array;
+                synchronized (mLock) {
+                    array = new Array<>(mOriginalArray);
+                }
+                results.values = array;
+                results.count = array.size();
+            } else {
+                final String prefixString = prefix.toString().toLowerCase();
+
+                final Array<T> array;
+                synchronized (mLock) {
+                    array = new Array<>(mOriginalArray);
+                }
+
+                final int count = array.size();
+                final Array<T> newArray = new Array<>();
+
+                for (int i = 0; i < count; i++) {
+                    final T value = array.get(i);
+                    final String valueText = value.toString().toLowerCase();
+
+                    // First match against the whole, non-splitted value
+                    if (valueText.startsWith(prefixString)) {
+                        newArray.add(value);
+                    } else {
+                        final String[] words = valueText.split(" ");
+                        for (String word : words) {
+                            if (word.startsWith(prefixString)) {
+                                newArray.add(value);
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                results.values = newArray;
+                results.count = newArray.size();
+            }
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            mArray.setCallback(null);
+            //noinspection unchecked
+            mArray = (Array<T>) results.values;
+            mArray.setCallback(ObjectAdapter.this);
+            notifyDataSetChanged();
+        }
     }
 }

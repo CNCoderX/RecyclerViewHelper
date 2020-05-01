@@ -47,13 +47,13 @@ public class RecyclerViewActivity extends Activity {
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.linear_layout:
+            case R.id.action_linear:
                 setLinearLayoutManager();
                 break;
-            case R.id.grid_layout:
+            case R.id.action_grid:
                 setGridLayoutManager();
                 break;
-            case R.id.staggered_grid_layout:
+            case R.id.action_staggered_grid:
                 setStaggeredGridLayoutManager();
                 break;
         }
