@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * @author cncoderx
  */
-public class ProxyAdapter extends RecyclerView.Adapter implements Filterable {
+public class DelegateAdapter extends RecyclerView.Adapter implements Filterable {
     private List<FixedViewHolder> mHeaderViewHolders = new ArrayList<>();
     private List<FixedViewHolder> mFooterViewHolders = new ArrayList<>();
     private LoadingViewHolder mLoadViewHolder = null;
@@ -35,7 +35,7 @@ public class ProxyAdapter extends RecyclerView.Adapter implements Filterable {
     private OnItemClickListener onItemClickListener;
     private OnItemLongClickListener onItemLongClickListener;
 
-    public ProxyAdapter(@NonNull RecyclerView.Adapter adapter) {
+    public DelegateAdapter(@NonNull RecyclerView.Adapter adapter) {
         mAdapter = adapter;
         setHasStableIds(adapter.hasStableIds());
     }
@@ -366,9 +366,9 @@ public class ProxyAdapter extends RecyclerView.Adapter implements Filterable {
 
         private int mState;
 
-        final WeakReference<ProxyAdapter> wrefAdapter;
+        final WeakReference<DelegateAdapter> wrefAdapter;
 
-        public LoadingViewHolder(ProxyAdapter adapter, View view, boolean fullSpan) {
+        public LoadingViewHolder(DelegateAdapter adapter, View view, boolean fullSpan) {
             super(view, fullSpan);
             wrefAdapter = new WeakReference<>(adapter);
             vShow = view.findViewById(R.id.loading_view_show);
@@ -421,7 +421,7 @@ public class ProxyAdapter extends RecyclerView.Adapter implements Filterable {
             vError.setVisibility(View.GONE);
             vEnd.setVisibility(View.GONE);
 
-            ProxyAdapter adapter = wrefAdapter.get();
+            DelegateAdapter adapter = wrefAdapter.get();
             if (adapter != null) {
                 adapter.notifyLoadingViewRemoved();
             }
@@ -453,11 +453,11 @@ public class ProxyAdapter extends RecyclerView.Adapter implements Filterable {
     }
 
     static class ItemClickEvent implements View.OnClickListener, View.OnLongClickListener {
-        final WeakReference<ProxyAdapter> wrefAdapter;
+        final WeakReference<DelegateAdapter> wrefAdapter;
         final WeakReference<RecyclerView> wrefParent;
         final WeakReference<RecyclerView.ViewHolder> wrefViewHolder;
 
-        public ItemClickEvent(ProxyAdapter adapter, RecyclerView parent, RecyclerView.ViewHolder viewHolder) {
+        public ItemClickEvent(DelegateAdapter adapter, RecyclerView parent, RecyclerView.ViewHolder viewHolder) {
             this.wrefAdapter = new WeakReference<>(adapter);
             this.wrefParent = new WeakReference<>(parent);
             this.wrefViewHolder = new WeakReference<>(viewHolder);
@@ -465,7 +465,7 @@ public class ProxyAdapter extends RecyclerView.Adapter implements Filterable {
 
         @Override
         public void onClick(View v) {
-            ProxyAdapter adapter = wrefAdapter.get();
+            DelegateAdapter adapter = wrefAdapter.get();
             RecyclerView parent = wrefParent.get();
             RecyclerView.ViewHolder viewHolder = wrefViewHolder.get();
             if (adapter != null && parent != null && viewHolder != null) {
@@ -477,7 +477,7 @@ public class ProxyAdapter extends RecyclerView.Adapter implements Filterable {
 
         @Override
         public boolean onLongClick(View v) {
-            ProxyAdapter adapter = wrefAdapter.get();
+            DelegateAdapter adapter = wrefAdapter.get();
             RecyclerView parent = wrefParent.get();
             RecyclerView.ViewHolder viewHolder = wrefViewHolder.get();
             if (adapter != null && parent != null && viewHolder != null) {

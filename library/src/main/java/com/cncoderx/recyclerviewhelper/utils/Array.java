@@ -25,6 +25,11 @@ public class Array<T> implements IArray<T> {
     }
 
     @Override
+    public boolean isEmpty() {
+        return mArray.isEmpty();
+    }
+
+    @Override
     public int size() {
         return mArray.size();
     }

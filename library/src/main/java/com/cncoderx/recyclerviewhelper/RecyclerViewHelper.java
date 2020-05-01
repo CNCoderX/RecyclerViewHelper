@@ -12,7 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Filter;
 
-import com.cncoderx.recyclerviewhelper.adapter.ProxyAdapter;
+import com.cncoderx.recyclerviewhelper.adapter.DelegateAdapter;
 import com.cncoderx.recyclerviewhelper.listener.EndlessScrollListener;
 import com.cncoderx.recyclerviewhelper.listener.OnItemClickListener;
 import com.cncoderx.recyclerviewhelper.listener.OnItemLongClickListener;
@@ -59,17 +59,17 @@ public class RecyclerViewHelper {
     }
 
     public static void setAdapter(@NonNull RecyclerView recyclerView, RecyclerView.Adapter adapter) {
-        if (adapter == null || adapter instanceof ProxyAdapter) {
+        if (adapter == null || adapter instanceof DelegateAdapter) {
             recyclerView.setAdapter(adapter);
         } else {
-            recyclerView.setAdapter(new ProxyAdapter(adapter));
+            recyclerView.setAdapter(new DelegateAdapter(adapter));
         }
     }
 
     public static RecyclerView.Adapter getAdapter(@NonNull RecyclerView recyclerView) {
         RecyclerView.Adapter adapter = recyclerView.getAdapter();
-        if (adapter instanceof ProxyAdapter) {
-            return ((ProxyAdapter) adapter).getWrappedAdapter();
+        if (adapter instanceof DelegateAdapter) {
+            return ((DelegateAdapter) adapter).getWrappedAdapter();
         }
         return adapter;
     }
@@ -141,14 +141,14 @@ public class RecyclerViewHelper {
 
     private static ILoadingView createLoadingView(@NonNull RecyclerView recyclerView, @LayoutRes int layout, boolean attached) {
         Context context = recyclerView.getContext();
-        ProxyAdapter proxyAdapter = obtainProxyAdapter(recyclerView, "createLoadingView()");
+        DelegateAdapter delegateAdapter = obtainProxyAdapter(recyclerView, "createLoadingView()");
         View view = LayoutInflater.from(context).inflate(layout, recyclerView, false);
-        return proxyAdapter.createLoadViewHolder(view, true);
+        return delegateAdapter.createLoadViewHolder(view, true);
     }
 
     public static ILoadingView getLoadingView(@NonNull RecyclerView recyclerView) {
-        ProxyAdapter proxyAdapter = obtainProxyAdapter(recyclerView, "showLoading()");
-        return proxyAdapter.getLoadingView();
+        DelegateAdapter delegateAdapter = obtainProxyAdapter(recyclerView, "showLoading()");
+        return delegateAdapter.getLoadingView();
     }
 
     public static void setFilterText(@NonNull RecyclerView recyclerView, String filterText) {
@@ -158,14 +158,14 @@ public class RecyclerViewHelper {
         }
     }
 
-    private static ProxyAdapter obtainProxyAdapter(@NonNull RecyclerView recyclerView, String methodName) {
+    private static DelegateAdapter obtainProxyAdapter(@NonNull RecyclerView recyclerView, String methodName) {
         RecyclerView.Adapter adapter = recyclerView.getAdapter();
         if (adapter == null) {
             throw new IllegalStateException("you must set adapter by RecyclerViewHelper.setAdapter() before call " + methodName);
         }
-        if (!(adapter instanceof ProxyAdapter)) {
+        if (!(adapter instanceof DelegateAdapter)) {
             throw new IllegalStateException("call RecyclerViewHelper.setAdapter() instead of RecyclerView.setAdapter()");
         }
-        return (ProxyAdapter) adapter;
+        return (DelegateAdapter) adapter;
     }
 }

@@ -11,6 +11,7 @@ import java.util.Comparator;
  */
 
 public interface IArray<T> {
+    boolean isEmpty();
     int size();
     T get(@IntRange(from = 0) int index);
     int indexOf(@NonNull T object);
