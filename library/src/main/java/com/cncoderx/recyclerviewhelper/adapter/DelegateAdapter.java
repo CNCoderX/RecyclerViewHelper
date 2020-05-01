@@ -122,7 +122,7 @@ public class DelegateAdapter extends RecyclerView.Adapter implements Filterable 
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         mAdapter.onAttachedToRecyclerView(recyclerView);
         RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
-        if (layoutManager != null && layoutManager instanceof GridLayoutManager) {
+        if (layoutManager instanceof GridLayoutManager) {
             GridLayoutManager gridLayoutManager = (GridLayoutManager) layoutManager;
             final int spanCount = gridLayoutManager.getSpanCount();
             final GridLayoutManager.SpanSizeLookup spanSizeLookup = gridLayoutManager.getSpanSizeLookup();
@@ -366,11 +366,11 @@ public class DelegateAdapter extends RecyclerView.Adapter implements Filterable 
 
         private int mState;
 
-        final WeakReference<DelegateAdapter> wrefAdapter;
+        final WeakReference<DelegateAdapter> mDelegateAdapterProvider;
 
         public LoadingViewHolder(DelegateAdapter adapter, View view, boolean fullSpan) {
             super(view, fullSpan);
-            wrefAdapter = new WeakReference<>(adapter);
+            mDelegateAdapterProvider = new WeakReference<>(adapter);
             vShow = view.findViewById(R.id.loading_view_show);
             vError = view.findViewById(R.id.loading_view_error);
             vEnd = view.findViewById(R.id.loading_view_end);
@@ -421,9 +421,9 @@ public class DelegateAdapter extends RecyclerView.Adapter implements Filterable 
             vError.setVisibility(View.GONE);
             vEnd.setVisibility(View.GONE);
 
-            DelegateAdapter adapter = wrefAdapter.get();
-            if (adapter != null) {
-                adapter.notifyLoadingViewRemoved();
+            DelegateAdapter delegateAdapter = mDelegateAdapterProvider.get();
+            if (delegateAdapter != null) {
+                delegateAdapter.notifyLoadingViewRemoved();
             }
         }
 
@@ -453,37 +453,37 @@ public class DelegateAdapter extends RecyclerView.Adapter implements Filterable 
     }
 
     static class ItemClickEvent implements View.OnClickListener, View.OnLongClickListener {
-        final WeakReference<DelegateAdapter> wrefAdapter;
-        final WeakReference<RecyclerView> wrefParent;
-        final WeakReference<RecyclerView.ViewHolder> wrefViewHolder;
+        final WeakReference<DelegateAdapter> mDelegateAdapterProvider;
+        final WeakReference<RecyclerView> mRecyclerViewProvider;
+        final WeakReference<RecyclerView.ViewHolder> mViewHolderProvider;
 
-        public ItemClickEvent(DelegateAdapter adapter, RecyclerView parent, RecyclerView.ViewHolder viewHolder) {
-            this.wrefAdapter = new WeakReference<>(adapter);
-            this.wrefParent = new WeakReference<>(parent);
-            this.wrefViewHolder = new WeakReference<>(viewHolder);
+        public ItemClickEvent(DelegateAdapter delegateAdapter, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+            this.mDelegateAdapterProvider = new WeakReference<>(delegateAdapter);
+            this.mRecyclerViewProvider = new WeakReference<>(recyclerView);
+            this.mViewHolderProvider = new WeakReference<>(viewHolder);
         }
 
         @Override
         public void onClick(View v) {
-            DelegateAdapter adapter = wrefAdapter.get();
-            RecyclerView parent = wrefParent.get();
-            RecyclerView.ViewHolder viewHolder = wrefViewHolder.get();
-            if (adapter != null && parent != null && viewHolder != null) {
+            DelegateAdapter delegateAdapter = mDelegateAdapterProvider.get();
+            RecyclerView recyclerView = mRecyclerViewProvider.get();
+            RecyclerView.ViewHolder viewHolder = mViewHolderProvider.get();
+            if (delegateAdapter != null && recyclerView != null && viewHolder != null) {
                 int position = viewHolder.getLayoutPosition();
                 long id = viewHolder.getItemId();
-                adapter.notifyItemClickListener(parent, v, position, id);
+                delegateAdapter.notifyItemClickListener(recyclerView, v, position, id);
             }
         }
 
         @Override
         public boolean onLongClick(View v) {
-            DelegateAdapter adapter = wrefAdapter.get();
-            RecyclerView parent = wrefParent.get();
-            RecyclerView.ViewHolder viewHolder = wrefViewHolder.get();
-            if (adapter != null && parent != null && viewHolder != null) {
+            DelegateAdapter delegateAdapter = mDelegateAdapterProvider.get();
+            RecyclerView recyclerView = mRecyclerViewProvider.get();
+            RecyclerView.ViewHolder viewHolder = mViewHolderProvider.get();
+            if (delegateAdapter != null && recyclerView != null && viewHolder != null) {
                 int position = viewHolder.getLayoutPosition();
                 long id = viewHolder.getItemId();
-                return adapter.notifyItemLongClickListener(parent, v, position, id);
+                return delegateAdapter.notifyItemLongClickListener(recyclerView, v, position, id);
             }
             return false;
         }

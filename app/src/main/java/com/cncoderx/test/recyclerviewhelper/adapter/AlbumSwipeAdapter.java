@@ -30,11 +30,18 @@ public class AlbumSwipeAdapter extends SwipeAdapter<Album> {
     }
 
     @Override
-    public void onBindViewHolder(BaseViewHolder holder, Album object, final int position) {
-        holder.getView(R.id.cover, ImageView.class).setImageResource(object.getCover());
-        holder.getView(R.id.name, TextView.class).setText(object.getName());
-        holder.getView(R.id.price, TextView.class).setText(object.getPrice());
-        holder.getView(R.id.delete).setOnClickListener(new View.OnClickListener() {
+    public void onBindViewHolder(BaseViewHolder holder, Album album, final int position) {
+        ImageView ivCover = holder.getView(R.id.cover);
+        ivCover.setImageResource(album.getCover());
+
+        TextView ivName = holder.getView(R.id.name);
+        ivName.setText(album.getName());
+
+        TextView ivPrice = holder.getView(R.id.price);
+        ivPrice.setText(album.getPrice());
+
+        View vDelete = holder.getView(R.id.delete);
+        vDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 remove(position);

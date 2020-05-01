@@ -48,7 +48,9 @@ public class LoadMoreActivity extends RecyclerViewActivity {
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mAdapter.clear();
+                if (!mAdapter.isEmpty()) {
+                    mAdapter.clear();
+                }
                 new LoadingTask(mAdapter, mRefreshLayout, null).execute();
             }
         });

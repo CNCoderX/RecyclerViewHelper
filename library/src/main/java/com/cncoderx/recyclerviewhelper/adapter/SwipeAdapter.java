@@ -132,15 +132,15 @@ public abstract class SwipeAdapter<T> extends ObjectAdapter<T> {
     }
 
     class OnLayoutListener implements SwipeLayout.OnLayout {
-        WeakReference<RecyclerView.ViewHolder> viewHolderRef;
+        WeakReference<RecyclerView.ViewHolder> mViewHolderProvider;
 
         OnLayoutListener(RecyclerView.ViewHolder holder) {
-            viewHolderRef = new WeakReference<>(holder);
+            mViewHolderProvider = new WeakReference<>(holder);
         }
 
         @Override
         public void onLayout(SwipeLayout layout) {
-            RecyclerView.ViewHolder holder = viewHolderRef.get();
+            RecyclerView.ViewHolder holder = mViewHolderProvider.get();
             if (holder != null) {
                 int position = holder.getAdapterPosition();
                 if (openedPositions.get(position)) {
