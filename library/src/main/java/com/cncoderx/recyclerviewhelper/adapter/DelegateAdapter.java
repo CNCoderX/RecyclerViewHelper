@@ -148,12 +148,13 @@ public class DelegateAdapter extends RecyclerView.Adapter implements Filterable 
 
         final int adjPosition = position - numHeaderView;
         final int itemCount = mAdapter.getItemCount();
+        final int lastPosition = adjPosition - itemCount;
         if (mLoadViewHolder != null && mLoadViewHolder.getState() != ILoadingView.STATE_GONE
-                && adjPosition == itemCount + numFooterView) {
+                && lastPosition == numFooterView) {
             return mLoadViewHolder.isFullSpan;
         }
-        if (adjPosition >= itemCount) {
-            return mFooterViewHolders.get(adjPosition - itemCount).isFullSpan;
+        if (lastPosition >= 0 && lastPosition < numFooterView) {
+            return mFooterViewHolders.get(lastPosition).isFullSpan;
         }
         return false;
     }
