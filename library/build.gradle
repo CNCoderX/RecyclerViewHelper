@@ -34,4 +34,4 @@ dependencies {
     provided "com.daimajia.swipelayout:library:1.2.0@aar"
 }
 
-apply from: 'bintray.gradle'
+// apply from: 'bintray.gradle'
