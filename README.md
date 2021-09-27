@@ -17,7 +17,7 @@ RecyclerViewHelper是基于android 原生库RecyclerView的功能扩展，扩展
 
 ## 添加依赖
 ```gradle
-compile 'com.github.CNCoderX:RecyclerViewHelper:1.2.4'
+compile 'com.github.CNCoderX:RecyclerViewHelper:1.2.5'
 
 // 如果需要添加抽屉功能，添加依赖：
 compile "com.daimajia.swipelayout:library:1.2.0@aar"

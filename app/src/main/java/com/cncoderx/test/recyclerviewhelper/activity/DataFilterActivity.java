@@ -2,7 +2,7 @@ package com.cncoderx.test.recyclerviewhelper.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;

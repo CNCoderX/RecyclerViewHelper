@@ -1,6 +1,6 @@
 package com.cncoderx.test.recyclerviewhelper.data;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * @author cncoderx

@@ -1,9 +1,10 @@
 package com.cncoderx.recyclerviewhelper.adapter;
 
-import android.support.annotation.IdRes;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
 import android.widget.TextView;
+
+import androidx.annotation.IdRes;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
 
 import java.util.Collection;
 

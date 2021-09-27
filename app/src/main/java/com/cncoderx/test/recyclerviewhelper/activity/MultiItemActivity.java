@@ -1,7 +1,7 @@
 package com.cncoderx.test.recyclerviewhelper.activity;
 
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.cncoderx.recyclerviewhelper.RecyclerViewHelper;
 import com.cncoderx.test.recyclerviewhelper.adapter.MultiAlbumAdapter;

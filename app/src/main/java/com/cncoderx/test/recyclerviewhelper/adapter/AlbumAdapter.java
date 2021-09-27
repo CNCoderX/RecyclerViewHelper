@@ -1,6 +1,6 @@
 package com.cncoderx.test.recyclerviewhelper.adapter;
 
-import android.support.annotation.LayoutRes;
+import androidx.annotation.LayoutRes;
 import android.widget.ImageView;
 import android.widget.TextView;
 

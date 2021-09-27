@@ -1,6 +1,6 @@
 package com.cncoderx.recyclerviewhelper.listener;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 /**

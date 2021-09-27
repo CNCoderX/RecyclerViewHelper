@@ -1,17 +1,17 @@
 package com.cncoderx.recyclerviewhelper.adapter;
 
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+
 import com.cncoderx.recyclerviewhelper.utils.Array;
 import com.cncoderx.recyclerviewhelper.utils.IArray;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;

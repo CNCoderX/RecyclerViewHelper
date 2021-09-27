@@ -20,9 +20,10 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile project(':library')
-    compile 'com.android.support:recyclerview-v7:28.0.0'
-    compile "com.daimajia.swipelayout:library:1.2.0@aar"
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    implementation project(':library')
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation "com.daimajia.swipelayout:library:1.2.0@aar"
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
 }
